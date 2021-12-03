@@ -15,18 +15,18 @@ do
 	#sliding window
 	one=$(awk -v c=$counter 'NR==c+1{print;exit}' input)
 	two=$(awk -v c=$counter 'NR==c+2{print;exit}' input)
+	if [[ $two -eq '' ]]
+	then
+		break
+	fi
 	sum=$i+$one+$two
 
 	if [[ $sum -gt $prev ]]
 	then
 		let 'acc++'
 	fi
-	echo $?
-	if [ $? -ne 0 ] 
-	then
-		break
-	fi
 	prev=$sum
+
 	let 'counter++'
 done < input
 echo $acc
